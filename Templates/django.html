@@ -1,0 +1,425 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+body{
+    margin:0;
+    background:#e5e9ee;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+.page-container{
+    width:98%;
+    margin:20px auto;
+}
+
+.pv-card{
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.12);
+    overflow:hidden;
+}
+
+.pv-header{
+    background:linear-gradient(to right,#005ba9,#0078d7);
+    color:white;
+    padding:18px 25px;
+}
+
+.pv-header h2{
+    margin:0;
+    font-size:24px;
+    font-weight:600;
+}
+
+.content{
+    padding:25px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:180px 1fr 180px 1fr;
+    gap:12px 20px;
+    align-items:center;
+}
+
+.form-grid label{
+    font-weight:600;
+    color:#333;
+    font-size:13px;
+}
+
+input[type=text],
+input[type=date],
+select{
+    width:100%;
+    height:38px;
+    border:1px solid #cfd7df;
+    border-radius:5px;
+    padding:0 10px;
+    box-sizing:border-box;
+}
+
+textarea{
+    width:100%;
+    border:1px solid #cfd7df;
+    border-radius:5px;
+    padding:10px;
+    resize:vertical;
+    box-sizing:border-box;
+}
+
+.full-width{
+    grid-column:2 / 5;
+}
+
+.separator{
+    margin:25px 0;
+}
+
+.block-title{
+    background:#f5f7fa;
+    border-left:5px solid #0078d7;
+    padding:10px 15px;
+    font-weight:700;
+    color:#005ba9;
+    margin-bottom:15px;
+}
+
+.material-box{
+    height:90px;
+}
+
+.test-box{
+    height:150px;
+}
+
+.reserve-box{
+    height:100px;
+}
+
+.bottom-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+    margin-top:25px;
+}
+
+.option-box{
+    background:#f8fafc;
+    border:1px solid #d8dee7;
+    border-radius:8px;
+    padding:20px;
+}
+
+.option-box h3{
+    margin-top:0;
+    text-align:center;
+    color:#005ba9;
+    font-size:18px;
+}
+
+.option-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.option-list label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.conclusion-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:15px 30px;
+    margin-top:15px;
+}
+
+.conclusion-grid label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:500;
+}
+
+.conclusion-grid input[type="radio"]{
+    margin:0;
+}
+
+
+.footer{
+    text-align:center;
+    margin-top:30px;
+}
+
+.btn-save{
+    background:#0078d7;
+    color:white;
+    border:none;
+    min-width:260px;
+    height:50px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-save:hover{
+    background:#0060ae;
+}
+
+.accept{
+    color:#198754;
+    font-weight:600;
+}
+
+.refuse{
+    color:#dc3545;
+    font-weight:600;
+}
+
+.reserve{
+    color:#fd7e14;
+    font-weight:600;
+}
+
+@media(max-width:1200px){
+
+    .form-grid{
+        grid-template-columns:180px 1fr;
+    }
+
+    .full-width{
+        grid-column:auto;
+    }
+
+    .bottom-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+<div class="page-container">
+
+    <div class="pv-card">
+
+        <div class="pv-header">
+            <h2>PV RECETTE</h2>
+        </div>
+
+        <div class="content">
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="block-title">
+                    Informations générales
+                </div>
+
+                <div class="form-grid">
+
+                    <label>Nom projet</label>
+                    <input type="text" name="nom_projet">
+
+                    <label>ATM</label>
+                    <select name="atm">
+                        <option></option>
+                    </select>
+
+                    <label>Environnement</label>
+                    <select name="environnement">
+                        <option>RECETTE</option>
+                        <option>PREPROD</option>
+                        <option>PRODUCTION</option>
+                    </select>
+
+                    <label>Constructeur</label>
+                    <input type="text" name="constructeur">
+
+                    <label>Version serveur</label>
+                    <input type="text" name="version_serveur">
+
+                    <label>Modèle</label>
+                    <input type="text" name="modele">
+
+                    <label>Version ATM</label>
+                    <input type="text" name="version_atm">
+
+                    <label>Responsable</label>
+                    <input type="text" name="responsable">
+
+                    <label>Date</label>
+                    <input type="date" name="date_recette">
+
+                    <label></label>
+                    <div></div>
+
+                    <label>Perso</label>
+                    <input type="text"
+                           name="perso"
+                           class="full-width">
+
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="block-title">
+                    Matériel et tests
+                </div>
+
+                <div style="margin-bottom:20px;">
+
+                    <label style="display:block;margin-bottom:8px;font-weight:600;">
+                        Matériel disponible
+                    </label>
+
+                    <textarea
+                        class="material-box"
+                        name="materiel_disponible"></textarea>
+
+                </div>
+
+                <div style="margin-bottom:20px;">
+
+                    <label style="display:block;margin-bottom:8px;font-weight:600;">
+                        Tests effectués
+                    </label>
+
+                    <textarea
+                        class="test-box"
+                        name="tests_effectues"></textarea>
+
+                </div>
+
+                <div style="margin-bottom:20px;">
+
+                    <label style="display:block;margin-bottom:8px;font-weight:600;">
+                        Réserves P1 / P2
+                    </label>
+
+                    <textarea
+                        class="reserve-box"
+                        name="reserve_p1_p2"></textarea>
+
+                </div>
+
+                <div>
+
+                    <label style="display:block;margin-bottom:8px;font-weight:600;">
+                        Réserves P3
+                    </label>
+
+                    <textarea
+                        class="reserve-box"
+                        name="reserve_p3"></textarea>
+
+                </div>
+
+                <div class="bottom-grid">
+
+                    <div class="option-box">
+
+                        <h3>DESCRIPTION</h3>
+
+                        <div class="option-list">
+
+                            <label>
+                                <input type="checkbox">
+                                Patch unitaire
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                MAJ
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                Template
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                IC
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                Service Pack
+                            </label>
+
+                            <label>
+                                <input type="checkbox">
+                                Non régression serveur
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="option-box">
+
+                      <h3>CONCLUSION</h3>
+
+                         <div class="conclusion-grid">
+
+                         <label>
+                          <input type="radio" name="type_conclusion" value="provisoire">
+             Provisoire
+        </label>
+
+        <label>
+            <input type="radio" name="type_decision" value="acceptee">
+            <span class="accept">Acceptée</span>
+        </label>
+
+        <label>
+            <input type="radio" name="decision" value="avec_reserve">
+            <span class="reserve">Avec réserve</span>
+        </label>
+
+        <label>
+            <input type="radio" name="type_conclusion" value="definitive">
+            Définitive
+        </label>
+
+        <label>
+            <input type="radio" name="type_decision" value="refusee">
+            <span class="refuse">Refusée</span>
+        </label>
+
+        <label>
+            <input type="radio" name="decision" value="sans_reserve">
+            Sans réserve
+        </label>
+
+    </div>
+
+</div>
+
+                </div>
+
+                <div class="footer">
+
+                    <button type="submit" class="btn-save">
+                        ENREGISTRER LE PV
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

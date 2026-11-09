@@ -1,0 +1,492 @@
+<style>
+
+/* ==========================
+   GLOBAL
+========================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 5px;
+    background: #efefef;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333;
+}
+
+/* ==========================
+   CONTENEUR PRINCIPAL
+========================== */
+
+.main-container {
+    background: #f4f4f4;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+    padding: 0;
+}
+
+/* ==========================
+   EN-TÊTE
+========================== */
+
+.header {
+    background: #0b6fd3;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 4px 4px 0 0;
+}
+
+/* ==========================
+   CONTENU
+========================== */
+
+.section {
+    padding: 10px;
+}
+
+/* ==========================
+   TITRES DES BLOCS
+========================== */
+
+.section-title {
+    background: #e9ebee;
+    border-left: 3px solid #0b6fd3;
+    color: #0b6fd3;
+    font-weight: 600;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+}
+
+/* ==========================
+   BOOTSTRAP GRID
+========================== */
+
+.row {
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+/* ==========================
+   LABELS
+========================== */
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: #333;
+    font-weight: normal;
+}
+
+/* ==========================
+   INPUTS
+========================== */
+
+.form-control {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #c6ced8;
+    border-radius: 2px;
+    background: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #0b6fd3;
+    box-shadow: 0 0 3px rgba(11, 111, 211, 0.2);
+}
+
+/* ==========================
+   TEXTAREA
+========================== */
+
+textarea.form-control {
+    min-height: 90px;
+    resize: vertical;
+    padding-top: 8px;
+}
+
+.textarea-large {
+    min-height: 110px;
+}
+
+.textarea-medium {
+    min-height: 70px;
+}
+
+/* ==========================
+   SÉPARATEUR
+========================== */
+
+.separator {
+    border-top: 1px solid #d4d4d4;
+    margin: 12px 0;
+}
+
+/* ==========================
+   BLOCS BAS DE PAGE
+========================== */
+
+.bottom-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.panel {
+    flex: 1;
+    background: #f5f5f5;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+}
+
+.panel-header {
+    padding: 8px;
+    text-align: center;
+    color: #0b6fd3;
+    font-weight: bold;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.panel-body {
+    padding: 12px;
+}
+
+/* ==========================
+   DESCRIPTION
+========================== */
+
+.description-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 40px;
+}
+
+.description-grid label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ==========================
+   CONCLUSION
+========================== */
+
+.conclusion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.conclusion-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+}
+
+.accepted {
+    color: #28a745;
+}
+
+.refused {
+    color: #dc3545;
+}
+
+.reserve {
+    color: #ff8c00;
+}
+
+.no-reserve {
+    color: #333;
+}
+
+/* ==========================
+   CHECKBOXES / RADIOS
+========================== */
+
+input[type="checkbox"],
+input[type="radio"] {
+    transform: scale(0.9);
+    margin: 0;
+}
+
+/* ==========================
+   BOUTON
+========================== */
+
+.btn-area {
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.btn-save {
+    background: #0b6fd3;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btn-save:hover {
+    background: #095db2;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 768px) {
+
+    .bottom-container {
+        flex-direction: column;
+    }
+
+    .description-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conclusion-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+</style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <title>PV RECETTE</title>
+</head>
+<body>
+
+<div class="container-fluid mt-3">
+
+    <div class="card">
+
+        <div class="card-header bg-primary text-white">
+            <h4>PV RECETTE</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <h5 class="border-start border-4 border-primary ps-2 mb-3">
+                    Informations générales
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.nom_projet.label_tag }}
+                        {{ form.nom_projet }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.atm.label_tag }}
+                        {{ form.atm }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.environnement.label_tag }}
+                        {{ form.environnement }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.constructeur.label_tag }}
+                        {{ form.constructeur }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.version_serveur.label_tag }}
+                        {{ form.version_serveur }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.modele.label_tag }}
+                        {{ form.modele }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.version_atm.label_tag }}
+                        {{ form.version_atm }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.responsable.label_tag }}
+                        {{ form.responsable }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        {{ form.date.label_tag }}
+                        {{ form.date }}
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        {{ form.perso.label_tag }}
+                        {{ form.perso }}
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <h5 class="border-start border-4 border-primary ps-2 mb-3">
+                    Matériel et tests
+                </h5>
+
+                <div class="mb-3">
+                    {{ form.materiel_disponible.label_tag }}
+                    {{ form.materiel_disponible }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.tests_effectues.label_tag }}
+                    {{ form.tests_effectues }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.reserves_p1_p2.label_tag }}
+                    {{ form.reserves_p1_p2 }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.reserves_p3.label_tag }}
+                    {{ form.reserves_p3 }}
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                DESCRIPTION
+                            </div>
+
+                            <div class="card-body">
+
+                                <div>
+                                    {{ form.patch_unitaire }}
+                                    Patch unitaire
+                                </div>
+
+                                <div>
+                                    {{ form.template }}
+                                    Template
+                                </div>
+
+                                <div>
+                                    {{ form.service_pack }}
+                                    Service Pack
+                                </div>
+
+                                <div>
+                                    {{ form.maj }}
+                                    MAJ
+                                </div>
+
+                                <div>
+                                    {{ form.ic }}
+                                    IC
+                                </div>
+
+                                <div>
+                                    {{ form.non_regression_serveur }}
+                                    Non régression serveur
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="card">
+                            <div class="card-header">
+                                CONCLUSION
+                            </div>
+
+                            <div class="card-body">
+
+                                
+
+                                <h6>Résultat</h6>
+                                {{ form.conclusion }}
+                                {{ form.type_reception }}
+
+                            </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                type
+                            </div>
+
+                            <div class="card-body">
+
+                                <h6>Type de réception</h6>
+                                
+                                {{ form.type_pv }}
+                            </div>
+
+
+                            
+
+
+                        
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="btn-area">
+
+                    <button type="submit"
+                            class="btn-save">
+                        ENREGISTRER LE PV
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
